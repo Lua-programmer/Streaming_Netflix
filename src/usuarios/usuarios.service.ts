@@ -1,5 +1,6 @@
 import { Injectable, 
-    ConflictException
+    ConflictException,
+    NotFoundException
 } from '@nestjs/common';
 
 import { Prisma,
@@ -35,4 +36,18 @@ export class UsuariosService {
         return usuario;
 
     }
+
+    async findOne(email: string,): Promise<Usuario> {
+        const usuario = await this.db.usuario.findUnique({
+          where: { email }
+        });
+    
+        if (!usuario) {
+          throw new NotFoundException('Not Found >E-MAIL<');
+        }
+    
+        return usuario;
+      }
+
+
 }

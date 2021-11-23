@@ -2,6 +2,8 @@ import {
     Controller, 
     Body, 
     Post, 
+    Get,
+    Param
 } from '@nestjs/common';
 
 import {
@@ -20,12 +22,28 @@ import {
     UsuarioRole
 } from './enum/role.enum';
 
-@Controller('users')
+@Controller('usuarios')
 export class UsuariosController {
     constructor(private service: UsuariosService) {}
 
     @Post('create-usuario')
-    create(@Body() data: CreateUsuarioDto): Promise<Usuario> {
+    createusuario(@Body() data: CreateUsuarioDto): Promise<Usuario> {
         return this.service.create(data, UsuarioRole.USUARIO)
     }
+
+    @Post('create-admin')
+    createadmin(@Body() data: CreateUsuarioDto): Promise<Usuario> {
+        return this.service.create(data, UsuarioRole.ADMIN)
+    }
+
+    @Get('procurar/:id')
+    encontreUmUnicoId(@Param('id') id: string): Promise<Usuario> {
+      return this.service.findOne(id);
+    }
+
+    @Get('procurar/:email')
+    encontreUmUnicoEmail(@Param('email') email: string): Promise<Usuario> {
+      return this.service.findOne(email);
+    }
 }
+
