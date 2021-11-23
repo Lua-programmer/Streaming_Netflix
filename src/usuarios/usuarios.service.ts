@@ -36,17 +36,29 @@ export class UsuariosService {
         return usuario;
 
     }
+    
+    async findOneId(id: string): Promise<Usuario> {
+        const usuarioId = await this.db.usuario.findUnique({
+            where: { id }
+        }):
+        
+        if (!usuarioId) {
+            throw new NotFoundException('Not Found >ID<');
+        }
+        
+        return usuarioId;
+    }
 
-    async findOne(email: string,): Promise<Usuario> {
-        const usuario = await this.db.usuario.findUnique({
+    async findOneEmail(email: string): Promise<Usuario> {
+        const usuarioEmail = await this.db.usuario.findUnique({
           where: { email }
         });
     
-        if (!usuario) {
+        if (!usuarioEmail) {
           throw new NotFoundException('Not Found >E-MAIL<');
         }
     
-        return usuario;
+        return usuarioEmail;
       }
 
 
