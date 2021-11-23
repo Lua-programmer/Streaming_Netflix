@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//default - define ou cria algo
+model Usuario {
+  id        String   @id @default(uuid()) //para gerar um id aleatório
+  nome      String
+  sobrenome String
+  email     String   @unique //para não permitir que tenha outro email do mesmo
+  role      String   @default("USUARIO") //todo usuario criado será USUARIO
+  senha     String
+  status    Boolean  @default(true)
+  updatedAt DateTime @updatedAt //guarda o tempo que foi atualizado pela última vez
+  createdAt DateTime @default(now()) //hora de foi criado
+}
