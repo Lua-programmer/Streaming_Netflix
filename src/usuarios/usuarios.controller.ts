@@ -36,12 +36,12 @@ export class UsuariosController {
         return this.service.create(data, UsuarioRole.ADMIN)
     }
 
-    @Get('procurar/:id')
+    @Get('procurar-id/:id')
     encontreUmUnicoId(@Param('id') id: string): Promise<Usuario> {
       return this.service.findOneId(id);
     }
 
-    @Get('procurar/:email')
+    @Get('procurar-email/:email')
     encontreUmUnicoEmail(@Param('email') email: string): Promise<Usuario> {
       return this.service.findOneEmail(email);
     }
