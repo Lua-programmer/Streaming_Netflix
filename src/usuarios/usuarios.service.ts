@@ -38,28 +38,28 @@ export class UsuariosService {
     }
     
     async findOneId(id: string): Promise<Usuario> {
-        const usuarioId = await this.db.usuario.findUnique({
+        const usuario = await this.db.usuario.findUnique({
             where: { id }
-        }):
+        });
         
-        if (!usuarioId) {
+        if (!usuario) {
             throw new NotFoundException('Not Found >ID<');
         }
         
-        return usuarioId;
+        return usuario;
     }
 
     async findOneEmail(email: string): Promise<Usuario> {
-        const usuarioEmail = await this.db.usuario.findUnique({
+        const usuario = await this.db.usuario.findUnique({
           where: { email }
         });
     
-        if (!usuarioEmail) {
+        if (!usuario) {
           throw new NotFoundException('Not Found >E-MAIL<');
         }
     
-        return usuarioEmail;
-      }
+        return usuario;
+    }
 
 
 }
