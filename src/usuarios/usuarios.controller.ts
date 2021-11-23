@@ -38,12 +38,12 @@ export class UsuariosController {
 
     @Get('procurar/:id')
     encontreUmUnicoId(@Param('id') id: string): Promise<Usuario> {
-      return this.service.findOne(id);
+      return this.service.findOneId(id);
     }
 
     @Get('procurar/:email')
     encontreUmUnicoEmail(@Param('email') email: string): Promise<Usuario> {
-      return this.service.findOne(email);
+      return this.service.findOneEmail(email);
     }
 }
 
