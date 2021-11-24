@@ -13,6 +13,8 @@ import { PrismaService
 import { UsuarioRole
 } from './enum/role.enum';
 
+import * as bcrypt from 'bcrypt'
+
 @Injectable()
 export class UsuariosService {
     constructor(
@@ -29,10 +31,17 @@ export class UsuariosService {
             throw new ConflictException('Este e-mail já está cadastrado');
         }
 
+        const hashedSenha = await bcrypt.hash(data.senha, 10);
+
         const usuario = await this.db.usuario.create({
-            data,
+            data: {
+                ...data,
+                role:role,
+                senha: hashedSenha
+            }
         });
 
+        delete usuario.senha;
         return usuario;
 
     }
@@ -60,6 +69,5 @@ export class UsuariosService {
     
         return usuario;
     }
-
 
 }
